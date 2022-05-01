@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "905328433151",
+    "project_id": "fairytale-cc1c4",
+    "storage_bucket": "fairytale-cc1c4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:905328433151:android:561f2647c0a3b626fbb9ca",
+        "android_client_info": {
+          "package_name": "ru.ds.fairytale"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "905328433151-6oafts9ui6tdjh2ngjfea4a9gu689mll.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFfGYhzQiEUTGu0twFjK80BOG1IRLmRis"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "905328433151-6oafts9ui6tdjh2ngjfea4a9gu689mll.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
