@@ -28,19 +28,22 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-            //pushNotification() //создаем каналы для внутрисистемных сообщений
+        binding.title.text = intent.getStringExtra("title")
+        binding.description.text = intent.getStringExtra("message")
+
+        //pushNotification() //создаем каналы для внутрисистемных сообщений
 
         //отлавливаем токен
-        FirebaseMessaging.getInstance().token.addOnCompleteListener {it->
-            if (it.isSuccessful){
-                Log.d("Dimas",it.result.toString())
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { it ->
+            if (it.isSuccessful) {
+                Log.d("Dimas", it.result.toString())
             }
 
         }
 
     }
 
-    private fun pushNotification(){
+    private fun pushNotification() {
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 

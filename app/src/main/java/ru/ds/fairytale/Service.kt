@@ -2,7 +2,9 @@ package ru.ds.fairytale
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -16,6 +18,7 @@ class Service:FirebaseMessagingService() {
         super.onNewToken(token)
         //отправили token на сервер
     }
+
         //сбда приходят сообщения из FB
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         val remoteMessageData = remoteMessage.data
@@ -26,6 +29,9 @@ class Service:FirebaseMessagingService() {
             val message = remoteMessageData[PUSH_KEY_MESSAGE]
             if(!title.isNullOrBlank()&&!message.isNullOrBlank()){
                 pushNotification(title,message)
+                val intentAction = Intent(this,MainActivity::class.java)
+                intentAction.putExtra("title",title.toString())
+                intentAction.putExtra("message",message.toString())
             }
 
         }
@@ -41,16 +47,22 @@ class Service:FirebaseMessagingService() {
     private fun pushNotification(title:String,message: String){
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
+        //val intentAction = Intent(this,MainActivity::class.java)
+
+        //val intent = PendingIntent.getActivity(this,0, intentAction,0)
+
         val notificationBuilder_1 = NotificationCompat.Builder(this,CHANNEL_ID_1).apply {
             setSmallIcon(R.drawable.ic_launcher_background)
             setContentTitle(title)
             setContentText(message)
-            priority = NotificationCompat.PRIORITY_MAX
+
+            //addAction(R.drawable.ic_launcher_background,"button",intent)
+            priority = NotificationCompat.PRIORITY_HIGH
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val nameChannel_1 = "Name $CHANNEL_ID_1"
             val descrChannel_1 = "Description $CHANNEL_ID_1"
-            val importanceChannel_1 = NotificationManager.IMPORTANCE_MIN
+            val importanceChannel_1 = NotificationManager.IMPORTANCE_HIGH
             val channel_1 =
                 NotificationChannel(CHANNEL_ID_1, nameChannel_1, importanceChannel_1).apply {
                     description = descrChannel_1
