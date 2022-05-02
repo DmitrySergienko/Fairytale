@@ -2,7 +2,6 @@ package ru.ds.fairytale
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -11,52 +10,47 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
 
-class Service:FirebaseMessagingService() {
+class Service : FirebaseMessagingService() {
 
-        //токен вызывается один раз при первом запуске
+    //токен вызывается один раз при первом запуске
     override fun onNewToken(token: String) {
         super.onNewToken(token)
         //отправили token на сервер
     }
 
-        //сбда приходят сообщения из FB
+    //сюда приходят сообщения из FB
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         val remoteMessageData = remoteMessage.data
-        if (remoteMessageData.isNotEmpty()){
+        if (remoteMessageData.isNotEmpty()) {
 
-            //получаем сообщение с Firebase
             val title = remoteMessageData[PUSH_KEY_TITLE]
             val message = remoteMessageData[PUSH_KEY_MESSAGE]
-            if(!title.isNullOrBlank()&&!message.isNullOrBlank()){
-                pushNotification(title,message)
-                val intentAction = Intent(this,MainActivity::class.java)
-                intentAction.putExtra("title",title.toString())
-                intentAction.putExtra("message",message.toString())
+            if (!title.isNullOrBlank() && !message.isNullOrBlank()) {
+                pushNotification(title, message)
+                val intentAction = Intent(this, MainActivity::class.java)
+                intentAction.putExtra("title", title.toString())
+                intentAction.putExtra("message", message.toString())
             }
 
         }
     }
 
-    companion object{
+    companion object {
         private const val PUSH_KEY_TITLE = "Title"
         private const val PUSH_KEY_MESSAGE = "Message"
         private const val CHANNEL_ID_1 = "Channel_Id_1"
         private const val NOTIFICATION_ID_1 = 1
     }
 
-    private fun pushNotification(title:String,message: String){
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    private fun pushNotification(title: String, message: String) {
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        //val intentAction = Intent(this,MainActivity::class.java)
-
-        //val intent = PendingIntent.getActivity(this,0, intentAction,0)
-
-        val notificationBuilder_1 = NotificationCompat.Builder(this,CHANNEL_ID_1).apply {
+        val notificationBuilder_1 = NotificationCompat.Builder(this, CHANNEL_ID_1).apply {
             setSmallIcon(R.drawable.ic_launcher_background)
             setContentTitle(title)
             setContentText(message)
 
-            //addAction(R.drawable.ic_launcher_background,"button",intent)
             priority = NotificationCompat.PRIORITY_HIGH
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
