@@ -3,8 +3,8 @@ package ru.ds.fairytale
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import coil.load
 import com.google.firebase.messaging.FirebaseMessaging
+import ru.ds.fairytale.coordianator.CoordinatorFragment
 import ru.ds.fairytale.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initMessage()//выводим сообщения на экран
 
         //отлавливаем токен
         FirebaseMessaging.getInstance().token.addOnCompleteListener { it ->
@@ -33,13 +32,37 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+        initBottomNavigation()
 
     }
 
-    private fun initMessage() {
-        binding.title.text = intent.getStringExtra("title")
-        binding.description.text = intent.getStringExtra("message")
-        binding.imageView.load(intent.getIntExtra("message",0))
+  // private fun initMessage() {
+  //     binding.title.text = intent.getStringExtra("title")
+  //     binding.description.text = intent.getStringExtra("message")
+  //     binding.imageView.load(intent.getIntExtra("message",0))
+  // }
+
+
+
+    private fun initBottomNavigation() {
+
+        binding.bottomNavigationView.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.bottom_local -> {
+
+                    supportFragmentManager
+                        .beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.container, CoordinatorFragment())
+                        .commit()
+                    true
+                }
+
+                else -> true
+            }
+        }
+        //default view
+        binding.bottomNavigationView.selectedItemId = R.id.bottom_local
     }
 
 }
