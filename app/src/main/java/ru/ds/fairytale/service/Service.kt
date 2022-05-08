@@ -1,4 +1,4 @@
-package ru.ds.fairytale
+package ru.ds.fairytale.service
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -8,9 +8,12 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import ru.ds.fairytale.MainActivity
+import ru.ds.fairytale.R
 
 
 class Service : FirebaseMessagingService() {
+
 
     //токен вызывается один раз при первом запуске
     override fun onNewToken(token: String) {

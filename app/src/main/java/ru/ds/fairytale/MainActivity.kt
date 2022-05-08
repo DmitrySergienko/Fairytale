@@ -2,10 +2,12 @@ package ru.ds.fairytale
 
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.messaging.FirebaseMessaging
 import ru.ds.fairytale.coordianator.CoordinatorFragment
 import ru.ds.fairytale.databinding.ActivityMainBinding
+import ru.ds.fairytale.viewModel.DataModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         private const val NOTIFICATION_ID_2 = 2
 
     }
+    private val dataModel:DataModel by viewModels()
 
     lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +38,8 @@ class MainActivity : AppCompatActivity() {
             if (it.isSuccessful) {
                 Log.d("Dimas", it.result.toString())
             }
-
         }
+        dataModel.titleMessage.value = intent.getStringExtra("title")
 
     }
 
