@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    //unique style for FAB
+    <style name="myButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/light_blue_700</item>
+    </style>
+
+
+
+</resources>

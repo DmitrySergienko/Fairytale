@@ -31,6 +31,7 @@
     <item name="colorPrimary">@color/colorPrimaryBlue</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDarkBlue</item>
     <item name="colorAccent">#ef9a9a</item>
+    <item name="materialButtonStyle">@style/myButtonStyle</item>
     </style>
 
 </resources>

@@ -1,11 +1,8 @@
 package ru.ds.fairytale
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import coil.load
 import com.google.firebase.messaging.FirebaseMessaging
 import ru.ds.fairytale.coordianator.CoordinatorFragment
 import ru.ds.fairytale.databinding.ActivityMainBinding
@@ -27,6 +24,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportFragmentManager
+            .beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.container, CoordinatorFragment())
+            .commit()
 
         //отлавливаем токен
         FirebaseMessaging.getInstance().token.addOnCompleteListener { it ->
@@ -35,46 +37,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-        initBottomNavigation()
-    }
-
-  // private fun initMessage() {
-  //     binding.title.text = intent.getStringExtra("title")
-  //     binding.description.text = intent.getStringExtra("message")
-  //     binding.imageView.load(intent.getIntExtra("message",0))
-  // }
-
-
-
-    private fun initBottomNavigation() {
-
-        binding.bottomNavigationView.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.bottom_local -> {
-
-                    supportFragmentManager
-                        .beginTransaction()
-                        .addToBackStack(null)
-                        .replace(R.id.container, CoordinatorFragment())
-                        .commit()
-                    true
-                }
-
-                else -> true
-            }
-        }
-        //default view
-        binding.bottomNavigationView.selectedItemId = R.id.bottom_local
-    }
-
-    private fun downloadImage() {
-
-        val image =startActivity(Intent(Intent.ACTION_VIEW).apply {
-            data =
-                Uri.parse(
-                    //"https://firebasestorage.googleapis.com/v0/b/fairytale-cc1c4.appspot.com/o/test%2Fic_fisherman.png?alt=media&token=df7301c0-8934-4b71-bed0-d2a0c29a8a18"${binding.inputEditText.text.toString()}")
-                    "https://firebasestorage.googleapis.com/v0/b/fairytale-cc1c4.appspot.com/o/test%2Fic_fisherman.png?alt=media&token=df7301c0-8934-4b71-bed0-d2a0c29a8a18")
-        })
 
     }
 

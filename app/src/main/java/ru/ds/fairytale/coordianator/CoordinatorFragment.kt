@@ -1,7 +1,6 @@
 package ru.ds.fairytale.coordianator
 
-import android.content.Intent
-import android.net.Uri
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -39,7 +38,7 @@ class CoordinatorFragment : Fragment() {
 
         // прописываем behavior через код
         val behavior = ButtonBehaviorMyStyle(requireContext())
-        (binding.myButton.getLayoutParams() as CoordinatorLayout.LayoutParams).behavior = behavior
+        (binding.coordinatorButton.getLayoutParams() as CoordinatorLayout.LayoutParams).behavior = behavior
         binding.mainBackdrop.load("https://firebasestorage.googleapis.com/v0/b/fairytale-cc1c4.appspot.com/o/test%2Fic_fisherman.png?alt=media&token=df7301c0-8934-4b71-bed0-d2a0c29a8a18")
 
     }

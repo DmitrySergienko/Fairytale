@@ -29,10 +29,10 @@ class ButtonBehaviorMyStyle(context: Context, attr:AttributeSet?=null): Coordina
 
 
         if(abs(barY)>(barHeight*1/2)){
-            child.setBackgroundColor(Color.BLACK)
+            child.setBackgroundColor(Color.TRANSPARENT)
         }else{
             child.visibility = View.VISIBLE
-            child.setBackgroundColor(Color.BLUE)
+            //child.setBackgroundColor(Color.BLUE)
         }
 
         if(abs(barY)>(barHeight*4/3)){
