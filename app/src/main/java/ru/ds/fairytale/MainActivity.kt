@@ -11,14 +11,7 @@ import ru.ds.fairytale.viewModel.DataModel
 
 class MainActivity : AppCompatActivity() {
 
-    companion object {
 
-        private const val CHANNEL_ID_1 = "Channel_Id_1"
-        private const val CHANNEL_ID_2 = "Channel_Id_2"
-        private const val NOTIFICATION_ID_1 = 1
-        private const val NOTIFICATION_ID_2 = 2
-
-    }
     private val dataModel:DataModel by viewModels()
 
     lateinit var binding: ActivityMainBinding
@@ -40,6 +33,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         dataModel.titleMessage.value = intent.getStringExtra("title")
+
 
     }
 
