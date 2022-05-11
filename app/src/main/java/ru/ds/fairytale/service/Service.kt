@@ -14,6 +14,7 @@ import ru.ds.fairytale.R
 
 class Service : FirebaseMessagingService() {
 
+    val image = "https://firebasestorage.googleapis.com/v0/b/fairytale-cc1c4.appspot.com/o/test%2Fic_fisherman.png?alt=media&token=df7301c0-8934-4b71-bed0-d2a0c29a8a18"
 
     //токен вызывается один раз при первом запуске
     override fun onNewToken(token: String) {
@@ -28,11 +29,13 @@ class Service : FirebaseMessagingService() {
 
             val title = remoteMessageData[PUSH_KEY_TITLE]
             val message = remoteMessageData[PUSH_KEY_MESSAGE]
+            val image = remoteMessageData[PUSH_KEY_IMAGE]
             if (!title.isNullOrBlank() && !message.isNullOrBlank()) {
                 pushNotification(title, message)
                 val intentAction = Intent(this, MainActivity::class.java)
                 intentAction.putExtra("title", title.toString())
                 intentAction.putExtra("message", message.toString())
+                intentAction.putExtra("image", image.toString())
             }
 
         }
@@ -41,6 +44,7 @@ class Service : FirebaseMessagingService() {
     companion object {
         private const val PUSH_KEY_TITLE = "Title"
         private const val PUSH_KEY_MESSAGE = "Message"
+        private const val PUSH_KEY_IMAGE = "Image"
         private const val CHANNEL_ID_1 = "Channel_Id_1"
         private const val NOTIFICATION_ID_1 = 1
     }

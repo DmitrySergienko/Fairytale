@@ -32,8 +32,9 @@ class MainActivity : AppCompatActivity() {
                 Log.d("Dimas", it.result.toString())
             }
         }
+        dataModel.imageMessage.value = intent.getStringExtra("image")
         dataModel.titleMessage.value = intent.getStringExtra("title")
-
+        dataModel.titleMessage.value = intent.getStringExtra("message")
 
     }
 

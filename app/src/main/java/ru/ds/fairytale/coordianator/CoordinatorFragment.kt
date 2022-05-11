@@ -46,11 +46,16 @@ class CoordinatorFragment : Fragment() {
         (binding.coordinatorButton.getLayoutParams() as CoordinatorLayout.LayoutParams).behavior =
             behavior
         //загружаем картинку
-        binding.mainBackdrop.load("https://firebasestorage.googleapis.com/v0/b/fairytale-cc1c4.appspot.com/o/test%2Fic_fisherman.png?alt=media&token=df7301c0-8934-4b71-bed0-d2a0c29a8a18")
+        //binding.mainBackdrop.load("https://firebasestorage.googleapis.com/v0/b/fairytale-cc1c4.appspot.com/o/test%2Fic_fisherman.png?alt=media&token=df7301c0-8934-4b71-bed0-d2a0c29a8a18")
         //загружаем текст из сообщения firebase
+        dataModel.imageMessage.observe(activity as LifecycleOwner) {
+            val imageFromServer = it
+            binding.mainBackdrop.load(imageFromServer)
+        }
         dataModel.titleMessage.observe(activity as LifecycleOwner) {
             binding.textView.text = it
         }
+
     }
 
 
