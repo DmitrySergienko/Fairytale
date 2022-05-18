@@ -1,4 +1,4 @@
-package ru.ds.fairytale.coordianator
+package ru.ds.fairytale.ui.coordianator
 
 import android.content.Context
 import android.util.AttributeSet

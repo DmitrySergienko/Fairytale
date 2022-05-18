@@ -5,8 +5,8 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.messaging.FirebaseMessaging
+import ru.ds.fairytale.ui.coordianator.CoordinatorFragment
 import ru.ds.fairytale.databinding.ActivityMainBinding
-import ru.ds.fairytale.ui.TestFragment
 import ru.ds.fairytale.viewModel.DataModel
 
 class MainActivity : AppCompatActivity() {
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager
             .beginTransaction()
             .addToBackStack(null)
-            .replace(R.id.container, TestFragment())
+            .replace(R.id.container, CoordinatorFragment())
             .commit()
 
         //отлавливаем токен
@@ -33,8 +33,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
         dataModel.imageMessage.value = intent.getStringExtra("image")
-        dataModel.titleMessage.value = intent.getStringExtra("title")
-        dataModel.titleMessage.value = intent.getStringExtra("message")
+        dataModel.messageMessage.value = intent.getStringExtra("message")
+
+
 
     }
 

@@ -1,6 +1,7 @@
-package ru.ds.fairytale.coordianator
+package ru.ds.fairytale.ui.coordianator
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleOwner
 import coil.load
+import io.reactivex.exceptions.Exceptions
 import ru.ds.fairytale.databinding.FragmentCoordinatorBinding
 import ru.ds.fairytale.viewModel.DataModel
-
+import java.net.URL
+import java.nio.charset.Charset
 
 
 class CoordinatorFragment : Fragment() {
@@ -45,22 +48,35 @@ class CoordinatorFragment : Fragment() {
         val behavior = ButtonBehaviorMyStyle(requireContext())
         (binding.coordinatorButton.getLayoutParams() as CoordinatorLayout.LayoutParams).behavior =
             behavior
-        //загружаем картинку
-        //binding.mainBackdrop.load("https://firebasestorage.googleapis.com/v0/b/fairytale-cc1c4.appspot.com/o/test%2Fic_fisherman.png?alt=media&token=df7301c0-8934-4b71-bed0-d2a0c29a8a18")
+
         //загружаем текст из сообщения firebase
         dataModel.imageMessage.observe(activity as LifecycleOwner) {
             val imageFromServer = it
             binding.mainBackdrop.load(imageFromServer)
         }
-        dataModel.titleMessage.observe(activity as LifecycleOwner) {
-            binding.textView.text = it
+        dataModel.messageMessage.observe(activity as LifecycleOwner) {
+
+            val handler = Handler()
+            Thread {
+                if (it.isNullOrBlank()) {
+                    handler.post { binding.textView.text = "no data from server" }
+                } else {
+                    handler.post {
+                        val message = it
+                        binding.textView.text = URL(message).readText(Charset.forName("UTF-8"))
+                    }
+                }
+            }.start()
+
+
         }
 
     }
-
 
     companion object {
         @JvmStatic
         fun newInstance() = CoordinatorFragment()
     }
 }
+
+

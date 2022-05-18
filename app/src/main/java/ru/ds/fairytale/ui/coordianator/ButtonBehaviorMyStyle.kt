@@ -1,13 +1,14 @@
-package ru.ds.fairytale.coordianator
+package ru.ds.fairytale.ui.coordianator
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.appbar.AppBarLayout
 import kotlin.math.abs
 
-class ButtonBehavior(context: Context, attr:AttributeSet?=null): CoordinatorLayout.Behavior<View>(context,attr) {
+class ButtonBehaviorMyStyle(context: Context, attr:AttributeSet?=null): CoordinatorLayout.Behavior<View>(context,attr) {
 
     override fun layoutDependsOn(
         parent: CoordinatorLayout,
@@ -26,11 +27,20 @@ class ButtonBehavior(context: Context, attr:AttributeSet?=null): CoordinatorLayo
         val barHeight = bar.height.toFloat()
         val barY = bar.y
 
-        if(abs(barY)>(barHeight*2/3)){
+
+        if(abs(barY)>(barHeight*1/2)){
+            child.setBackgroundColor(Color.TRANSPARENT)
+        }else{
+            child.visibility = View.VISIBLE
+            //child.setBackgroundColor(Color.BLUE)
+        }
+
+        if(abs(barY)>(barHeight*4/3)){
+
             child.visibility = View.GONE
         }else{
             child.visibility = View.VISIBLE
-            child.alpha = ((barHeight*2/3)-abs(barY/2))/(barHeight*2/3)
+            child.alpha = ((barHeight*1)-abs(barY/1))/(barHeight*3/4)
         }
 
         return super.onDependentViewChanged(parent, child, dependency)
