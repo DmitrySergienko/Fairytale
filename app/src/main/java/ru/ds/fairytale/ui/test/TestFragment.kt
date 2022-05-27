@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import ru.ds.fairytale.app
 import ru.ds.fairytale.databinding.FragmentTestBinding
 import java.net.URL
@@ -30,13 +31,18 @@ class TestFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         _binding = FragmentTestBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+       // viewModel.onShowData()
+        viewModel.repo.observe(viewLifecycleOwner, Observer {
 
+            binding.textView.text = it
+        })
         binding.buttonEnterText.setOnClickListener {
             val handler = Handler()
             Thread {

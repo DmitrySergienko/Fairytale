@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.android.datatransport:transport-runtime:3.1.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/5251d7c18ccab0cd7216ad8d1842a539/transformed/transport-runtime-3.1.1/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5251d7c18ccab0cd7216ad8d1842a539/transformed/transport-runtime-3.1.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5251d7c18ccab0cd7216ad8d1842a539/transformed/transport-runtime-3.1.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/a7219c2019ccce61bd491f603b4e6fcd/transformed/transport-runtime-3.1.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a7219c2019ccce61bd491f603b4e6fcd/transformed/transport-runtime-3.1.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a7219c2019ccce61bd491f603b4e6fcd/transformed/transport-runtime-3.1.1/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.android.datatransport/transport-runtime/3.1.1/804948d975d169593a5a3b73de902020b5c2be55/transport-runtime-3.1.1-javadoc.jar!/" />

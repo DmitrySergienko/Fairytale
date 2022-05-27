@@ -43,8 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textStyle="italic"
-            android:text="@string/large_text"/>
+            android:textStyle="italic"/>
 
     </androidx.core.widget.NestedScrollView>
 

@@ -8,10 +8,16 @@ import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import coil.load
-import io.reactivex.exceptions.Exceptions
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import ru.ds.fairytale.app
 import ru.ds.fairytale.databinding.FragmentCoordinatorBinding
+import ru.ds.fairytale.ui.test.FirebaseViewModel
+import ru.ds.fairytale.ui.test.ViewModelFactory
 import ru.ds.fairytale.viewModel.DataModel
 import java.net.URL
 import java.nio.charset.Charset
@@ -20,7 +26,7 @@ import java.nio.charset.Charset
 class CoordinatorFragment : Fragment() {
 
     private val dataModel: DataModel by activityViewModels()
-
+    private val viewModel: FirebaseViewModel by viewModels { ViewModelFactory(requireActivity().app.firebaseRep) }
 
     private var _binding: FragmentCoordinatorBinding? = null
     val binding: FragmentCoordinatorBinding
@@ -44,33 +50,49 @@ class CoordinatorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // прописываем behavior через код
+        coordinatorButtonBehavior()// прописываем behavior через код
+        downloadImageFromFireBase()//download picture from firebase
+        downloadTextFromFireBase() //download text from firebase
+
+
+    }
+
+    private fun imageDefault() {
+
+        val imageDefault =
+            "https://firebasestorage.googleapis.com/v0/b/fairytale-cc1c4.appspot.com/o/782771327_kartina-po-nomeram.jpg?alt=media&token=a83ca8bb-e86a-4637-a717-83d2be22d190"
+        binding.mainBackdrop.load(imageDefault)
+
+    }
+
+    private fun downloadTextFromFireBase() {
+        viewModel.onShowData()
+        viewModel.repo.observe(viewLifecycleOwner, Observer {
+            if (it.isNullOrBlank()) {
+                binding.textView.text = "no data from server"
+            } else {
+                binding.textView.text = it
+            }
+        })
+    }
+
+    private fun downloadImageFromFireBase() {
+
+        dataModel.imageMessage.observe(activity as LifecycleOwner) {
+            if (it.isNullOrBlank()) {
+                imageDefault()
+            } else {
+                val imageFromServer = it
+                binding.mainBackdrop.load(imageFromServer)
+            }
+
+        }
+    }
+
+    private fun coordinatorButtonBehavior() {
         val behavior = ButtonBehaviorMyStyle(requireContext())
         (binding.coordinatorButton.getLayoutParams() as CoordinatorLayout.LayoutParams).behavior =
             behavior
-
-        //загружаем текст из сообщения firebase
-        dataModel.imageMessage.observe(activity as LifecycleOwner) {
-            val imageFromServer = it
-            binding.mainBackdrop.load(imageFromServer)
-        }
-        dataModel.messageMessage.observe(activity as LifecycleOwner) {
-
-            val handler = Handler()
-            Thread {
-                if (it.isNullOrBlank()) {
-                    handler.post { binding.textView.text = "no data from server" }
-                } else {
-                    handler.post {
-                        val message = it
-                        binding.textView.text = URL(message).readText(Charset.forName("UTF-8"))
-                    }
-                }
-            }.start()
-
-
-        }
-
     }
 
     companion object {
